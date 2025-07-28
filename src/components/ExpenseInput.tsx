@@ -61,6 +61,15 @@ const ExpenseInput = () => {
     }
   };
 
+  const isFormValid =
+    amount.trim() !== "" &&
+    !isNaN(Number(amount)) &&
+    Number(amount) > 0 &&
+    /^[0-9]+(\.[0-9]{1,2})?$/.test(amount.trim()) &&
+    description.trim() !== "" &&
+    isNaN(Number(description.trim())) &&
+    date !== null;
+
   return (
     <View style={[styles.container, theme === "dark" && styles.containerDark]}>
       <Text style={[styles.label, theme === "dark" && styles.labelDark]}>
@@ -68,7 +77,10 @@ const ExpenseInput = () => {
       </Text>
       <TextInput
         value={amount}
-        onChangeText={setAmount}
+        onChangeText={(text) => {
+          const cleaned = text.replace(/[^0-9.]/g, "");
+          setAmount(cleaned);
+        }}
         keyboardType="numeric"
         placeholder="Enter amount"
         placeholderTextColor={theme === "dark" ? "#aaa" : "#999"}
@@ -85,7 +97,11 @@ const ExpenseInput = () => {
         placeholderTextColor={theme === "dark" ? "#aaa" : "#999"}
         style={[styles.input, theme === "dark" && styles.inputDark]}
       />
-
+      {description.trim() !== "" && !isNaN(Number(description.trim())) && (
+        <Text style={{ color: "red" }}>
+          Description must be text, not a number
+        </Text>
+      )}
       <Text style={[styles.label, theme === "dark" && styles.labelDark]}>
         Date
       </Text>
@@ -118,7 +134,7 @@ const ExpenseInput = () => {
         </>
       )}
 
-      <Button title="Submit" onPress={handleSubmit} />
+      <Button title="Submit" onPress={handleSubmit} disabled={!isFormValid} />
     </View>
   );
 };

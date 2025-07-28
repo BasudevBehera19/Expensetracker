@@ -9,8 +9,6 @@ const ExpenseListScreen = () => {
 
   const totalExpense = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
 
-  console.log("All expenses:", expenses);
-  console.log("Total amount spent:", totalExpense);
 
   return (
     <SafeAreaView style={styles.safeArea}>
