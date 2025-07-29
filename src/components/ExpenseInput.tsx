@@ -134,7 +134,17 @@ const ExpenseInput = () => {
         </>
       )}
 
-      <Button title="Submit" onPress={handleSubmit} disabled={!isFormValid} />
+      <TouchableOpacity
+        onPress={handleSubmit}
+        disabled={!isFormValid}
+        style={[
+          styles.submitButton,
+          theme === "dark" ? styles.submitButtonDark : styles.submitButtonLight,
+          !isFormValid && styles.submitButtonDisabled,
+        ]}
+      >
+        <Text style={styles.submitButtonText}>Submit</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -183,6 +193,25 @@ const styles = StyleSheet.create({
     color: "#fff",
     borderColor: "#555",
     backgroundColor: "#1e1e1e",
+  },
+  submitButton: {
+    padding: 12,
+    borderRadius: 6,
+    alignItems: "center",
+    marginTop: 16,
+  },
+  submitButtonLight: {
+    backgroundColor: "#6200ee",
+  },
+  submitButtonDark: {
+    backgroundColor: "#bb86fc",
+  },
+  submitButtonDisabled: {
+    backgroundColor: "#ccc",
+  },
+  submitButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });
 
