@@ -6,15 +6,26 @@ import { Expense } from "../types/Expense";
 
 const ExpenseListScreen = () => {
   const { expenses, deleteExpense } = useContext(ExpenseContext);
+  // Filter expenses for today
+  const today = new Date().toISOString().split("T")[0];
+  const todayExpenses = expenses.filter((expense) => expense.date === today);
+  // Total expense for today
+  const totalTodayExpense = todayExpenses.reduce(
+    (sum, e) => sum + Number(e.amount),
+    0
+  );
 
+  // Total expenses
   const totalExpense = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
-
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <Text style={styles.totalText}>
           Total Spent: ₹{totalExpense.toFixed(2)}
+        </Text>
+        <Text style={styles.totalText}>
+          Today's Spending: ₹{totalTodayExpense.toFixed(2)}
         </Text>
 
         {expenses.length === 0 ? (

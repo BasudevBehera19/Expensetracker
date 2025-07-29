@@ -1,6 +1,6 @@
 # Expense Tracker App
 
-A mobile app built with React Native **Expo**, and **TypeScript** to help users add, view, and delete daily expenses with support for light and dark themes.
+A mobile app built with React Native Expo, and TypeScriptto help users add, view, and delete daily expenses with support for light and dark themes.
 
 ---
 
@@ -22,7 +22,7 @@ A mobile app built with React Native **Expo**, and **TypeScript** to help users 
 - npm install 
 - npx expo start
 
-## Expo link
-- 
+
+
 
 

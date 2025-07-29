@@ -29,7 +29,7 @@ const ExpenseInput = () => {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState<Date | null>(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
-
+  // Submit form
   const handleSubmit = () => {
     if (!amount || !description || !date) {
       Alert.alert("Error", "All fields are required.");
@@ -41,11 +41,20 @@ const ExpenseInput = () => {
       return;
     }
 
+    // Format date in local time
+
+    const formatDateLocal = (date: Date): string => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    };
+
     addExpense({
       id: Date.now().toString(),
       amount: parseFloat(amount),
       description,
-      date: date.toISOString().split("T")[0],
+      date: formatDateLocal(date),
     });
 
     setAmount("");
@@ -53,13 +62,15 @@ const ExpenseInput = () => {
     setDate(null);
     navigation.navigate("ExpenseList");
   };
-
+  // Date Function
   const onChangeDate = (event: any, selectedDate?: Date) => {
     setShowDatePicker(false);
     if (selectedDate) {
       setDate(selectedDate);
     }
   };
+
+  // Form validations
 
   const isFormValid =
     amount.trim() !== "" &&
